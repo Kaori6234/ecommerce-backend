@@ -1,0 +1,15 @@
+[2025-12-07T13:01:40.558Z] ERROR: This is a test error to create the logs folder!
+URL: GET /force-error
+Stack:
+Error: This is a test error to create the logs folder!
+    at D:\Dulguun\ecommerce-backend\server.js:22:19
+    at Layer.handleRequest (D:\Dulguun\ecommerce-backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\Dulguun\ecommerce-backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\Dulguun\ecommerce-backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\Dulguun\ecommerce-backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\Dulguun\ecommerce-backend\node_modules\router\lib\layer.js:152:17)
+    at D:\Dulguun\ecommerce-backend\node_modules\router\index.js:295:15
+    at processParams (D:\Dulguun\ecommerce-backend\node_modules\router\index.js:582:12)
+    at next (D:\Dulguun\ecommerce-backend\node_modules\router\index.js:291:5)
+    at internalNext (D:\Dulguun\ecommerce-backend\node_modules\helmet\index.cjs:531:6)
+
