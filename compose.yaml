@@ -1,4 +1,18 @@
 services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=Dolgoon123
+      - DB_NAME=ecommercedb
+      - DB_PORT=5432
+      - JWT_SECRET=your_jwt_secret
+    depends_on:
+      - db
+
   db:
     image: postgres:15
     container_name: ecommerce_db

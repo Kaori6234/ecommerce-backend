@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet'); 
 const rateLimit = require('express-rate-limit'); 
 const errorHandler = require('./middleware/error');
+const path = require('path'); 
 require('dotenv').config();
-
 
 const authRoutes = require('./routes/auth');
 const inventoryRoutes = require('./routes/inventory'); 
@@ -13,14 +13,16 @@ const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/orders');
 const reportRoutes = require('./routes/reports');
+const uploadRoutes = require('./routes/upload'); 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(helmet());
+
 app.get('/force-error', (req, res, next) => {
     const error = new Error("This is a test error to create the logs folder!");
-    next(error); // This sends it to your Error Middleware
+    next(error); 
 });
 
 const limiter = rateLimit({
@@ -29,25 +31,28 @@ const limiter = rateLimit({
     message: "Too many requests from this IP, please try again later."
 });
 app.use(limiter);
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(errorHandler);
 
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/upload', uploadRoutes); 
 
 app.get('/', (req, res) => {
     res.send('Ecommerce Backend is running!');
 });
 
-app.use('/uploads', express.static('uploads'));
+app.use(errorHandler);
 
 if (require.main === module) {
     app.listen(PORT, () => {
@@ -55,8 +60,4 @@ if (require.main === module) {
     });
 }
 
-// Keep this for local development
-
-
-// Add this line for Vercel
 module.exports = app;
